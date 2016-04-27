@@ -24,8 +24,15 @@ class DefaultController extends Controller {
         $data_uri = $request->get('sign');
         $encoded_image = explode(",", $data_uri)[1];
         $decoded_image = base64_decode($encoded_image);
-        file_put_contents("assets/signatures/" . time() . ".png", $decoded_image);
-
+        $file = "assets/signatures/" . time() . ".png";
+        file_put_contents($file, $decoded_image);
+        
+        // trim signature white space
+//        $img = new \Imagick($file);
+//        $img->rotateimage('#ccc', 180);
+//        $quantumInfo = $img->getQuantumRange();
+//        $img->trimImage($quantumInfo['quantumRangeLong'] * 0.4);
+        
         return new Response('Signature saved successfully.');
     }
 
