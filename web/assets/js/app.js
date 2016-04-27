@@ -26,6 +26,20 @@ saveButton.addEventListener("click", function (event) {
     if (signaturePad.isEmpty()) {
         alert("Please provide signature first.");
     } else {
-        window.open(signaturePad.toDataURL());
+        $('[data-action=save]').text('Saving...');
+        $('[data-action=save]').attr('disabled', 'disabled');
+        
+        $.ajax('app_dev.php/save', {
+            type: 'POST',
+            data: {
+                sign: signaturePad.toDataURL()
+            },
+            success: function(response){
+                $('[data-action=save]').text('Save');
+                $('[data-action=save]').removeAttr('disabled');
+                alert(response);
+                signaturePad.clear();
+            }
+        });
     }
 });
