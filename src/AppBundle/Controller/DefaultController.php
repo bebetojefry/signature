@@ -23,11 +23,13 @@ class DefaultController extends Controller {
      */
     public function saveAction(Request $request) {
         // save image to folder
+        /*
         $data_uri = $request->get('sign');
         $encoded_image = explode(",", $data_uri)[1];
         $decoded_image = base64_decode($encoded_image);
         $file = "assets/signatures/" . time() . ".png";
         file_put_contents($file, $decoded_image);
+        */
         
         // save image to DB
         $em = $this->getDoctrine()->getEntityManager();
