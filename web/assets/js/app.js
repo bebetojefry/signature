@@ -9,6 +9,8 @@ function resizeCanvas() {
     canvas.width = canvas.offsetWidth * ratio;
     canvas.height = canvas.offsetHeight * ratio;
     canvas.getContext("2d").scale(ratio, ratio);
+    
+    $('.signature-list').css('height', $(window).height()+'px');
 }
 
 window.onresize = resizeCanvas;
@@ -32,6 +34,7 @@ saveButton.addEventListener("click", function (event) {
         $.ajax('app_dev.php/save', {
             type: 'POST',
             data: {
+                name: $('#txtName').val(),
                 sign: signaturePad.toDataURL()
             },
             success: function(response){
