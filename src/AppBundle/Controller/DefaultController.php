@@ -14,8 +14,8 @@ class DefaultController extends Controller {
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request) {
-        // replace this example code with whatever you need
-        return $this->render('AppBundle:Default:index.html.twig');
+        $signs = $this->getDoctrine()->getRepository('AppBundle:Sign')->findAll();
+        return $this->render('AppBundle:Default:index.html.twig', array('signs' => $signs));
     }
 
     /**

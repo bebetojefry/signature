@@ -86,18 +86,21 @@ saveButton.addEventListener("click", function (event) {
         // remove signature whitespace
         signaturePad.removeBlanks();
         var sign = signaturePad.toDataURL();
+        var name = $('#txtName').val();
         signaturePad.clear();
         
         // ajax call to save sign
         $.ajax('app_dev.php/save', {
             type: 'POST',
             data: {
-                name: $('#txtName').val(),
+                name: name,
                 sign: sign
             },
             success: function(response){
                 $('[data-action=save]').text('Save');
                 $('[data-action=save]').removeAttr('disabled');
+                var sign_html = '<div class="sign"><img src="data:'+sign+'" width="200"><span>'+name+'</span></div>';
+                $('.signature-list').append(sign_html);
                 alert(response);
             }
         });

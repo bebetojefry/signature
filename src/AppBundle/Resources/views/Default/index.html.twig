@@ -20,7 +20,12 @@
             </div>
         </div>
         <div class="signature-list">
-            
+            {% for sign in signs %}
+                <div class="sign">
+                    <img src="data:{{ sign.getSign() }}" width="200" />
+                    <span>{{ sign.getName() }}</span>
+                </div>
+            {% endfor %}
         </div>
         <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
     </body>
