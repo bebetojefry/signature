@@ -87,7 +87,10 @@ $('#frmSign').on('submit', function(){
         signaturePad.removeBlanks();
         var sign = signaturePad.toDataURL();
         var name = $('#txtName').val();
+        
+        //clear pad
         signaturePad.clear();
+        $('#txtName').val('');
         
         // ajax call to save sign
         $.ajax('app_dev.php/save', {
@@ -99,9 +102,10 @@ $('#frmSign').on('submit', function(){
             success: function(response){
                 $('[data-action=save]').text('Save');
                 $('[data-action=save]').removeAttr('disabled');
-                var sign_html = '<div class="sign"><img src="data:'+sign+'" width="200"><span>'+name+'</span></div>';
+                var sign_html = '<div class="sign"><img src="'+sign+'" width="200"><span>'+name+'</span></div>';
                 $('.signature-list').append(sign_html);
                 alert(response);
+                resizeCanvas();
             }
         });
     }
