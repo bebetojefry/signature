@@ -76,7 +76,7 @@ clearButton.addEventListener("click", function (event) {
     signaturePad.clear();
 });
 
-saveButton.addEventListener("click", function (event) {
+$('#frmSign').on('submit', function(){
     if (signaturePad.isEmpty()) {
         alert("Please provide signature first.");
     } else {
@@ -105,4 +105,6 @@ saveButton.addEventListener("click", function (event) {
             }
         });
     }
+    
+    return false;
 });
