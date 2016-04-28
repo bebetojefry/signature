@@ -27,12 +27,6 @@ class DefaultController extends Controller {
         $file = "assets/signatures/" . time() . ".png";
         file_put_contents($file, $decoded_image);
         
-        // trim signature white space
-//        $img = new \Imagick($file);
-//        $img->rotateimage('#ccc', 180);
-//        $quantumInfo = $img->getQuantumRange();
-//        $img->trimImage($quantumInfo['quantumRangeLong'] * 0.4);
-        
         return new Response('Signature saved successfully.');
     }
 
