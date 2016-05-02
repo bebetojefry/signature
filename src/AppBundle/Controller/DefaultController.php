@@ -14,8 +14,9 @@ class DefaultController extends Controller {
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request) {
-        $signs = $this->getDoctrine()->getRepository('AppBundle:Sign')->findAll();
-        return $this->render('AppBundle:Default:index.html.twig', array('signs' => $signs));
+//        $signs = $this->getDoctrine()->getRepository('AppBundle:Sign')->findAll();
+//        return $this->render('AppBundle:Default:index.html.twig', array('signs' => $signs));
+         return $this->render('AppBundle:Default:index.html.twig');
     }
 
     /**
@@ -32,12 +33,12 @@ class DefaultController extends Controller {
         */
         
         // save image to DB
-        $em = $this->getDoctrine()->getEntityManager();
-        $sign = new Sign($request->get('name'), $request->get('sign'));
-        $em->persist($sign);
-        $em->flush();
-        
-        return new Response('Signature saved successfully.');
+//        $em = $this->getDoctrine()->getEntityManager();
+//        $sign = new Sign($request->get('name'), $request->get('sign'));
+//        $em->persist($sign);
+//        $em->flush();
+//        
+//        return new Response('Signature saved successfully.');
     }    
 
 }

@@ -7,28 +7,28 @@
     <body>
         <div id="signature-pad" class="m-signature-pad">
             <form name="frmSign" id="frmSign" action="" method="POST">
-                <div class="m-user-body">
+                {#<div class="m-user-body">
                     <label>Name:</label>
                     <input type="text" required="" name="txt_name" id="txtName" />
-                </div>
+                </div>#}
                 <div class="m-signature-pad--body">
                     <canvas></canvas>
                 </div>
                 <div class="m-signature-pad--footer">
                     <div class="description">Sign above</div>
                     <button type="button" class="button clear" data-action="clear">Clear</button>
-                    <button type="submit" class="button save" data-action="save">Save</button>
+                    {#<button type="submit" class="button save" data-action="save">Save</button>#}
                 </div>
             </form>
         </div>
-        <div class="signature-list">
+        {#<div class="signature-list">
             {% for sign in signs %}
                 <div class="sign">
                     <img src="{{ sign.getSign() }}" width="200" />
                     <span>{{ sign.getName() }}</span>
                 </div>
             {% endfor %}
-        </div>
+        </div>#}
         <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
     </body>
 </html>
