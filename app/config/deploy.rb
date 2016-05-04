@@ -15,6 +15,8 @@ set :dump_assetic_assets, true
 role :web,        domain                         # Your HTTP server, Apache/etc
 role :app,        domain, :primary => true       # This may be the same as your `Web` server
 
+set :composer_options,  "--dev --verbose --prefer-dist --optimize-autoloader --no-progress"
+
 set :shared_files,      ["app/config/parameters.yml"]
 set :shared_children,     [app_path + "/logs", "vendor", "web/assets/vendor"]
 
@@ -24,7 +26,7 @@ before 'symfony:assetic:dump', 'node:download'
 after 'node:download', 'bower:download'
 after 'bower:download', 'bower:install'
 after 'symfony:assetic:dump', 'symfony:permission'
-#after 'symfony:permission', 'database:refresh'
+after 'symfony:permission', 'database:update'
 
 namespace :node do
     desc 'Node download'
@@ -59,10 +61,10 @@ namespace :symfony do
 end
 
 namespace :database do
-    desc 'refresh Update'
-    task :refresh do
-      capifony_pretty_print "--> Refreshing Database"
-      invoke_command "sh -c 'cd #{latest_release} && php app/console doctrine:schema:update --force'"
+    desc 'update databse schema'
+    task :update do
+      capifony_pretty_print "--> Updating Database Schema"
+      invoke_command "sh -c 'cd #{latest_release} && php app/console --env=dev doctrine:schema:update --force'"
       capifony_puts_ok
     end
 end
