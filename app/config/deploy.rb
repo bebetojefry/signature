@@ -18,12 +18,7 @@ role :app,        domain, :primary => true       # This may be the same as your 
 set :shared_files,      ["app/config/parameters.yml"]
 set :shared_children,     [app_path + "/logs", "vendor", "web/assets/vendor"]
 
-set :writable_dirs,       ["app/cache", "app/logs"]
-set :webserver_user,      "www-data"
-set :permission_method,   :acl
-set :use_set_permissions, true
-
-set   :use_sudo,      true
+set   :use_sudo,      false
 
 before 'symfony:assetic:dump', 'node:download'
 after 'node:download', 'bower:download'
