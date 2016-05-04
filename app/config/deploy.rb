@@ -20,7 +20,10 @@ set :composer_options,  "--dev --verbose --prefer-dist --optimize-autoloader --n
 set :shared_files,      ["app/config/parameters.yml"]
 set :shared_children,     [app_path + "/logs", "vendor", "web/assets/vendor"]
 
+set :clear_controllers, false
 set   :use_sudo,      false
+
+set :branch, ENV['BRANCH'] if ENV['BRANCH']
 
 before 'symfony:assetic:dump', 'node:download'
 after 'node:download', 'bower:download'
@@ -68,5 +71,16 @@ namespace :database do
       capifony_puts_ok
     end
 end
+
+task :upload_httaccess do 
+    origin_file = "web/.htaccess" 
+    destination_file = latest_release + "/web/.htaccess" # Notice the latest_release 
+
+    try_sudo "mkdir -p #{File.dirname(destination_file)}" 
+    top.upload(origin_file, destination_file) 
+end
+
+after "deploy", "upload_httaccess"
+
 
 set  :keep_releases,  3
