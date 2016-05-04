@@ -1,7 +1,7 @@
 set :application, "signature app"
 set :domain,      "ubuntu.dev"
 set :user,        "vagrant"
-set :deploy_to,   "/vagrant"
+set :deploy_to,   "/var/www/html/signature_deployed"
 set :app_path,    "app"
 
 set :repository,  "https://github.com/bebetojefry/signature.git"
