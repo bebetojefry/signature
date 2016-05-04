@@ -24,11 +24,12 @@ before 'symfony:assetic:dump', 'node:download'
 after 'node:download', 'bower:download'
 after 'bower:download', 'bower:install'
 after 'symfony:assetic:dump', 'symfony:permission'
+#after 'symfony:permission', 'database:refresh'
 
 namespace :node do
     desc 'Node download'
     task :download do
-      capifony_pretty_print "--> Download NodeJS"
+      capifony_pretty_print "--> Downloading NodeJS"
       invoke_command "sh -c 'curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && sudo apt-get install -y nodejs'"
       capifony_puts_ok
     end
@@ -53,6 +54,15 @@ namespace :symfony do
     task :permission do
       capifony_pretty_print "--> Setting permissions"
       invoke_command "sh -c 'chmod -R 777 #{latest_release}/app/cache && chmod -R 777 #{latest_release}/app/logs'"
+      capifony_puts_ok
+    end
+end
+
+namespace :database do
+    desc 'refresh Update'
+    task :refresh do
+      capifony_pretty_print "--> Refreshing Database"
+      invoke_command "sh -c 'cd #{latest_release} && php app/console doctrine:schema:update --force'"
       capifony_puts_ok
     end
 end
