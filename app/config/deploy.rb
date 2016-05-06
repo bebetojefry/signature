@@ -1,6 +1,6 @@
 set :application, "signature app"
-set :domain,      "syclcdcdvm001.nyumc.org"
-set :user,        "jefryb01"
+set :domain,      "ubuntu.dev"
+set :user,        "vagrant"
 set :deploy_to,   "/var/www/html/signature_deployed"
 set :app_path,    "app"
 
