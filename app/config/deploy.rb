@@ -78,6 +78,10 @@ task :upload_httaccess do
 
     try_sudo "mkdir -p #{File.dirname(destination_file)}" 
     top.upload(origin_file, destination_file) 
+
+    log = "#{deploy_to}/revisions.log"
+    run "(test -e #{log} || touch #{log} && chmod 666 #{log}) && " +
+    "echo $(date) $(ls -1 | wc -l) : #{latest_revision} >> #{log};"
 end
 
 after "deploy", "upload_httaccess"
