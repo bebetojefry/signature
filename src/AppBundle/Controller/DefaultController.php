@@ -41,17 +41,14 @@ class DefaultController extends Controller {
     }    
     
     /**
-     * @Route("/pdf/{page}", name="pdf")
+     * @Route("/pdf/{page}/{quality}", name="pdf")
      */
-    public function pdfAction($page = null, Request $request) {
-        $pdf_file   = 'pdf/pdf.pdf';
-
-        if($page !== null){
-            $pdf_file .= "[$page]";
-        }
+    public function pdfAction($page, $quality, Request $request) {
+        $pdf_file   = "pdf/pdf.pdf[$page]";
         
         $img = new \imagick($pdf_file);
         $img->setImageFormat('jpg');
+        $img->setimagecompressionquality($quality);
 
         $response = new Response($img->getimageblob(), 200);
         $response->headers->set('Content-Type', 'image/jpg');
