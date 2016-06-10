@@ -46,7 +46,7 @@ class DefaultController extends Controller {
     public function pdfAction($page = null, Request $request) {
         $pdf_file   = 'pdf/pdf.pdf';
 
-        if($page){
+        if($page !== null){
             $pdf_file .= "[$page]";
         }
         
