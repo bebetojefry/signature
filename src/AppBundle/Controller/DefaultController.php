@@ -39,5 +39,23 @@ class DefaultController extends Controller {
         
         return new Response('Signature saved successfully.');
     }    
+    
+    /**
+     * @Route("/pdf/{page}", name="pdf")
+     */
+    public function pdfAction($page = null, Request $request) {
+        $pdf_file   = 'pdf/pdf.pdf';
+
+        if($page){
+            $pdf_file .= "[$page]";
+        }
+        
+        $img = new \imagick($pdf_file);
+        $img->setImageFormat('jpg');
+
+        $response = new Response($img->getimageblob(), 200);
+        $response->headers->set('Content-Type', 'image/jpg');
+        return $response;
+    }
 
 }
