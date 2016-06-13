@@ -41,18 +41,33 @@ class DefaultController extends Controller {
     }    
     
     /**
-     * @Route("/pdf/{page}/{quality}", name="pdf")
+     * @Route("/preview", name="preview")
      */
-    public function pdfAction($page, $quality, Request $request) {
-        $pdf_file   = "pdf/pdf.pdf[$page]";
+    public function previewAction(Request $request) {
+//        $pdf_file   = "pdf/pdf.pdf[$page]";
+//        
+//        $img = new \imagick($pdf_file);
+//        $img->setImageFormat('jpg');
+//        $img->setImageUnits(\imagick::RESOLUTION_PIXELSPERINCH);
+//        $img->setImageResolution(1500,1500);
+//        //$img->setimagecompressionquality($quality);
+//
+//        $response = new Response($img->getimageblob(), 200);
+//        
+//        $img->clear();
+//        $img->destroy();
+//        
+//        $response->headers->set('Content-Type', 'image/jpg');
+//        return $response;
         
-        $img = new \imagick($pdf_file);
-        $img->setImageFormat('jpg');
-        $img->setimagecompressionquality($quality);
-
-        $response = new Response($img->getimageblob(), 200);
-        $response->headers->set('Content-Type', 'image/jpg');
-        return $response;
+        return $this->render('AppBundle:Default:preview.html.twig');
+    }
+    
+    /**
+     * @Route("/pdf", name="pdf")
+     */
+    public function pdfAction(Request $request) {
+        return $this->render('AppBundle:Default:pdf.html.twig');
     }
 
 }
