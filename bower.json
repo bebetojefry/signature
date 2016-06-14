@@ -15,6 +15,7 @@
   "dependencies": {
     "signature_pad": "^1.5.3",
     "jquery": "^2.2.3",
-    "pdfviewer": "^0.3.2"
+    "pdfviewer": "^0.3.2",
+    "pdfjs-dist": "1.5.*"
   }
 }

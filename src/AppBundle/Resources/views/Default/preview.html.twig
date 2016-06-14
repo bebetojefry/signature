@@ -1,11 +1,46 @@
 <html>
     <head>
-        <script src="{{ asset('assets/vendor/pdfviewer/dist/pdfviewer.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/vendor/pdfjs-dist/build/pdf.js') }}"></script>
+        <style type="text/css">
+            body {
+                background-color: #666;
+            }
+            #pdf {
+                width: 920px;
+                margin: 0 auto;
+            }
+            canvas {
+                border: 1px solid #ccc;
+                margin-bottom: 15px;
+                -webkit-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+                box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+            }
+        </style>
     </head>
-    <div id="pdf" style="width: 500px; height: 500px;">
-        
-    </div>
-    <script type="text/javascript">
-        new PdfViewer({pdfUrl: 'http://ubuntu.dev/signature/web/pdf/pdf.pdf', staticHost: '{{ path('pdf') }}'}).embed(document.getElementById('pdf'))
-    </script>
+    <body>
+        <div id="pdf"></div>
+        <script type="text/javascript">
+            var url = 'http://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf';
+            var scale = 1.5;
+
+            //PDFJS.workerSrc = '{{ asset('assets/vendor/pdfjs-dist/build/pdf.worker.js') }}';  
+            //PDFJS.disableWorker = true;
+            
+            PDFJS.getDocument(url).then(function(pdf) {
+                for (var pNum = 1; pNum <= pdf.numPages; pNum++) {
+                    pdf.getPage(pNum).then(function(page) {
+                        var viewport = page.getViewport(scale);
+                        var canvas = document.createElement('canvas');
+                        document.getElementById('pdf').appendChild(canvas);
+                        var context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        page.render({canvasContext: context, viewport: viewport});
+                    });
+                }
+            });
+        </script>
+    </body>
 </html>
+
